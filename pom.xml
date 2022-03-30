@@ -55,7 +55,8 @@
     </dependencies>
     <distributionManagement>
         <repository>
-            <id>local-maven</id>
+            <id>gitee-zwenbobo</id>
+            <name>gitee-maven</name>
             <url>file:${project.basedir}/release</url>
         </repository>
     </distributionManagement>
