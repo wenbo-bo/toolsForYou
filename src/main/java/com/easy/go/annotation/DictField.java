@@ -25,9 +25,15 @@ public @interface DictField {
 	String to() default "";
 
 	/**
-	 * 枚举类
+	 * 查询的字典 key
+	 * @return
 	 */
-	Class<?> enumClass();
+	String dictCode() default "";
+//
+//	/**
+//	 * 枚举类
+//	 */
+//	Class<?> enumClass();
 
 	/**
 	 * code类型

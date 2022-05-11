@@ -1,18 +1,25 @@
 package com.easy.go.config;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.easy.go.annotation.DictEntity;
 import com.easy.go.annotation.DictField;
 import com.easy.go.service.IDictSV;
-import com.easy.go.utils.SpringUtil;
+import com.easy.go.service.impl.DictSVImpl;
 import com.easy.go.utils.StringUtil;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.plugin.*;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.sql.Statement;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
+
 import org.apache.commons.lang3.reflect.FieldUtils;
+
+import javax.annotation.Resource;
 
 /**
  * 处理枚举字段
@@ -24,6 +31,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = Statement.class)
 })
 public class MyBatisEnumHandlePlugin implements Interceptor {
+
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -47,7 +55,7 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
                     Field readField = (Field) info.get("read");
                     Field writeField = (Field) info.get("write");
                     Map dictValues = (Map) info.get("value");
-                    if (org.springframework.util.StringUtils.isEmpty(readField.get(datum))){
+                    if (StringUtil.isEmpty(readField.get(datum))){
                         continue;
                     }
                     FieldUtils.writeField(writeField, datum, dictValues.get(readField.get(datum)), true);
@@ -74,9 +82,12 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
      * @param cls
      * @return
      */
-    private List<Map<String, Object>> getTranslationInformation(Class<?> cls) throws ExecutionException, InterruptedException {
+    private List<Map<String, Object>> getTranslationInformation(Class<?> cls) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // 查询字典值service
-        IDictSV dictSV = SpringUtil.getObject(IDictSV.class);
+
+        //IDictSV dictSV = applicationContext.getBean(IDictSV.class);
+
+        Method getDictValues = IDictSV.class.getMethod("getDictValues",String.class, Class.class);
         List<Map<String, Object>> list = new ArrayList<>();
         List<DictField> dicts = new ArrayList<>();
         getAllDictAnnotation(cls, dicts);
@@ -87,11 +98,6 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
         for (Iterator iterator = set.iterator();iterator.hasNext();){
             DictField dictField = (DictField)iterator.next();
         // 开始填充Field
-        //for (DictField dictField : dicts) {
-//            if (dictField.enumClass().equals(DictEnum.class)) {
-//                // 如果是父类枚举直接返回
-//                continue;
-//            }
             // 字典读写翻译信息存储
             Map<String, Object> fieldInfo = new HashMap<>();
             String toField = dictField.to();
@@ -101,7 +107,9 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
             }
             Field readField = FieldUtils.getField(cls, dictField.from(), true);
             Field writeField = FieldUtils.getField(cls, toField, true);
-            Map localValue = dictSV.getDictValues(dictField.enumClass(), dictField.codeType());
+            //Map localValue = dictSV.getDictValues(dictField.enumClass(), dictField.codeType());
+            IDictSV iDictSV = new DictSVImpl();
+            Map localValue = (Map) getDictValues.invoke(iDictSV,dictField.dictCode(), dictField.codeType());
             if (readField == null || writeField == null || localValue == null) {
                 continue;
             }
