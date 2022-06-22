@@ -75,7 +75,10 @@ public class LockerAspect {
             proceed = joinPoint.proceed();
             // -------------------------------after-------------------------
             // 如果业务时间小于最小持有锁时间，休眠一会
-            long sleepTime = locker.limitTime() - (System.currentTimeMillis() - startTime);
+            long limitTime = locker.limitTime();
+            long doTime = System.currentTimeMillis() - startTime;
+            long sleepTime = limitTime - doTime;
+            LOGGER.info("业务耗时: {} 毫秒 锁时间: {} 毫秒",doTime,limitTime);
             if (sleepTime > 0) {
                 Threads.sleep(sleepTime);
             }
@@ -115,36 +118,35 @@ public class LockerAspect {
             int argsNum = 0;
             try {
                 Object o = null;
-                if (("POST").equals(getRequestMethod())) {
-                    o = args[0];
-                    Object fieldValue = "";
-                    if (o instanceof JSONObject){
-                        fieldValue = ((JSONObject) o).get(split[1]);
-                    }else{
-                        fieldValue = ReflectHelper.getFieldValue(o, split[1]);
-                    }
-                    field.append((fieldValue));
-                } else {
-                    argsNum = Integer.parseInt(split[0]);
-                    if (split.length == 1) {
-                        argsNum = Integer.parseInt(split[0]);
-                        field.append((args[argsNum]));
-                    } else {
-                        o = args[argsNum];
-                        field.append(o);
-                    }
-                }
+                argsNum = Integer.parseInt(split[0]);
+                o = args[argsNum];
+                appendValue(o,split,field);
             } catch (Exception e) {
                 LOGGER.info("LockFiled e:{}",e.getMessage());
                 throw new UnsupportedOperationException("Locker表达式paramExp不正确！");
             }
         }
-        if (extraKey != null) {
+        if (field.length() != 0 && extraKey != null) {
             field.append(extraKey);
         }
         return field.toString();
     }
-
+    private void appendValue(Object o,String[] split,StringBuilder field){
+        Object fieldValue = null;
+        if (o instanceof JSONObject) {
+            fieldValue = ((JSONObject) o).get(split[1]);
+            field.append(fieldValue);
+        }else if (argType(o)){
+            fieldValue = o;
+            field.append(fieldValue);
+        }else {
+            fieldValue  = ReflectHelper.getFieldValue(o, split[1]);
+            field.append(fieldValue);
+        }
+    }
+    private boolean argType(Object arg){
+        return  (arg instanceof String || arg instanceof Number || arg instanceof Enum);
+    }
     /**
      * 是否存在注解，如果存在就获取
      */
