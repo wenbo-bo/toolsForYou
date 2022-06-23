@@ -1,7 +1,5 @@
 package com.easy.go.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.easy.go.service.impl.DictSVImpl;
 
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
@@ -57,4 +55,7 @@ public interface IDictSV{
     }
 
 
+    default String queryDictTextByKey(String code, String trim){
+        return null;
+    }
 }
