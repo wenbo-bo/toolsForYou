@@ -254,8 +254,8 @@ public class ReflectHelper {
             }
             field.setAccessible(true);
 
-                field.set(object,map.get(field.getName()));
-            }
+            field.set(object, map.get(field.getName()));
+        }
         return object;
     }
 
@@ -318,14 +318,14 @@ public class ReflectHelper {
      * @param object
      * @return
      */
-    public static Field[] getAllFields(Object object){
+    public static Field[] getAllFields(Object object) {
         Class<?> clazz = object.getClass();
         List<Field> fieldList = new ArrayList<>();
-        if (("HashMap").equals(clazz.getSimpleName()) || "LinkedHashMap".equals(clazz.getSimpleName()) || object.toString().startsWith("data:image/jpg")){
+        if (("HashMap").equals(clazz.getSimpleName()) || "LinkedHashMap".equals(clazz.getSimpleName()) || object.toString().startsWith("data:image/jpg")) {
             return fieldList.toArray(new Field[0]);
         }
         while (clazz != null) {
-            if (("JSONObject").equals(clazz.getSimpleName())){
+            if (("JSONObject").equals(clazz.getSimpleName())) {
                 break;
             }
             fieldList.addAll(new ArrayList<>(Arrays.asList(clazz.getDeclaredFields())));
@@ -336,37 +336,39 @@ public class ReflectHelper {
         fieldList.toArray(fields);
         return fields;
     }
-    public static JSONObject item(Object record){
+
+    public static JSONObject item(Object record) {
         ObjectMapper mapper = new ObjectMapper();
-        String json="{}";
+        String json = "{}";
         try {
             //解决@JsonFormat注解解析不了的问题详见SysAnnouncement类的@JsonFormat
             json = mapper.writeValueAsString(record);
         } catch (JsonProcessingException e) {
-            log.error("json解析失败"+e.getMessage(),e);
+            log.error("json解析失败" + e.getMessage(), e);
         }
 
         JSONObject item = null;
         try {
             item = JSONObject.parseObject(json);
         } catch (Exception e) {
-            log.info("字典json解析错误 忽略:{}",e.getMessage());
-            log.info("json:{}",json);
+            log.info("字典json解析错误 忽略:{}", e.getMessage());
+            log.info("json:{}", json);
         }
         return item;
     }
-    public static List getList(Object object,String name) {
+
+    public static List getList(Object object, String name) {
         Class<?> clazz = object.getClass();
         List list = null;
         Field[] fields = clazz.getDeclaredFields();
-        fields = Arrays.stream(fields).filter(m->m.getName().equals(name)).toArray(Field[]::new);
+        fields = Arrays.stream(fields).filter(m -> m.getName().equals(name)).toArray(Field[]::new);
         if (clazz != null) {
             try {
                 String fieldName = fields[0].getName();
                 PropertyDescriptor descriptor = new PropertyDescriptor(fieldName, clazz);
                 Method method = descriptor.getReadMethod();
                 list = (List) method.invoke(object);
-                if (name.equals(fieldName)){
+                if (name.equals(fieldName)) {
                     return list;
                 }
             } catch (Exception e) {
@@ -376,18 +378,19 @@ public class ReflectHelper {
         }
         return list;
     }
-    public static Object getObject(Object object,String name) {
+
+    public static Object getObject(Object object, String name) {
         Class<?> clazz = object.getClass();
         Object o = null;
         Field[] fields = clazz.getDeclaredFields();
-        fields = Arrays.stream(fields).filter(m->m.getName().equals(name)).toArray(Field[]::new);
+        fields = Arrays.stream(fields).filter(m -> m.getName().equals(name)).toArray(Field[]::new);
         if (clazz != null) {
             try {
                 String fieldName = fields[0].getName();
                 PropertyDescriptor descriptor = new PropertyDescriptor(fieldName, clazz);
                 Method method = descriptor.getReadMethod();
                 o = method.invoke(object);
-                if (name.equals(fieldName)){
+                if (name.equals(fieldName)) {
                     return o;
                 }
             } catch (Exception e) {

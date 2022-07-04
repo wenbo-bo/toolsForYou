@@ -56,7 +56,7 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
                     Field readField = (Field) info.get("read");
                     Field writeField = (Field) info.get("write");
                     Map dictValues = (Map) info.get("value");
-                    if (StringUtil.isEmpty(readField.get(datum))){
+                    if (StringUtil.isEmpty(readField.get(datum))) {
                         continue;
                     }
                     FieldUtils.writeField(writeField, datum, dictValues.get(readField.get(datum)), true);
@@ -95,9 +95,9 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
             return list;
         }
         Set<DictField> set = new HashSet<>(dicts);
-        for (Iterator<DictField> iterator = set.iterator();iterator.hasNext();){
+        for (Iterator<DictField> iterator = set.iterator(); iterator.hasNext(); ) {
             DictField dictField = iterator.next();
-        // 开始填充Field
+            // 开始填充Field
             // 字典读写翻译信息存储
             Map<String, Object> fieldInfo = new HashMap<>();
             String toField = dictField.to();
@@ -137,7 +137,7 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
             fields.addAll(Arrays.asList(value));
         }
         // 继续往上找
-        if (cls.getSuperclass() != null  && cls.getSuperclass() != Object.class) {
+        if (cls.getSuperclass() != null && cls.getSuperclass() != Object.class) {
             getAllDictAnnotation(cls.getSuperclass(), fields);
         }
     }

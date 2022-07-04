@@ -52,9 +52,10 @@ public class RedisLockUtil {
     /**
      * 内部持有模板
      */
-    private static RedisTemplate<Object,Object> redisTemplate;
+    private static RedisTemplate<Object, Object> redisTemplate;
+
     static {
-        redisTemplate= new RedisTemplate<>();
+        redisTemplate = new RedisTemplate<>();
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
         Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
@@ -75,11 +76,12 @@ public class RedisLockUtil {
         redisTemplate.setHashValueSerializer(serializer);
         redisTemplate.afterPropertiesSet();
     }
+
     /**
      * 尝试获取分布式锁
      *
-     * @param lockKey 锁
-     * @param requestId 请求标识,唯一ID
+     * @param lockKey                锁
+     * @param requestId              请求标识,唯一ID
      * @param expireTimeMilliseconds 超期时间，多少毫秒后这把锁自动释放
      * @return 返回true表示拿到锁
      */
@@ -119,7 +121,7 @@ public class RedisLockUtil {
     /**
      * 释放分布式锁
      *
-     * @param lockKey 锁
+     * @param lockKey   锁
      * @param requestId 请求标识
      * @return 返回true表示释放锁成功
      */

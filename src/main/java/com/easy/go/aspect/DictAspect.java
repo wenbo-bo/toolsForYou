@@ -41,6 +41,7 @@ public class DictAspect {
     private static final String LIST = "List";
 
     private static final String ORG_JEECG = "org.jeecg";
+
     // 定义切点Pointcut
     @Pointcut("execution(public * org.jeecg.modules..*.*Controller.*(..))")
     public void excudeService() {
@@ -48,14 +49,14 @@ public class DictAspect {
 
     @Around(value = "excudeService()")
     public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
-        long time1=System.currentTimeMillis();
+        long time1 = System.currentTimeMillis();
         Object result = pjp.proceed();
-        long time2=System.currentTimeMillis();
-        log.debug("获取JSON数据 耗时："+(time2-time1)+"ms");
-        long start=System.currentTimeMillis();
+        long time2 = System.currentTimeMillis();
+        log.debug("获取JSON数据 耗时：" + (time2 - time1) + "ms");
+        long start = System.currentTimeMillis();
         this.parseDictText(result);
-        long end=System.currentTimeMillis();
-        log.debug("解析注入JSON数据  耗时"+(end-start)+"ms");
+        long end = System.currentTimeMillis();
+        log.debug("解析注入JSON数据  耗时" + (end - start) + "ms");
         return result;
     }
 
@@ -65,95 +66,97 @@ public class DictAspect {
      * 示例为SysUser   字段为sex 添加了注解@Dict(dicCode = "sex") 会在字典服务立马查出来对应的text 然后在请求list的时候将这个字典text，已字段名称加_dictText形式返回到前端
      * 例输入当前返回值的就会多出一个sex_dictText字段
      * {
-     *      sex:1,
-     *      sex_dictText:"男"
+     * sex:1,
+     * sex_dictText:"男"
      * }
      * 前端直接取值sext_dictText在table里面无需再进行前端的字典转换了
-     *  customRender:function (text) {
-     *               if(text==1){
-     *                 return "男";
-     *               }else if(text==2){
-     *                 return "女";
-     *               }else{
-     *                 return text;
-     *               }
-     *             }
-     *             目前vue是这么进行字典渲染到table上的多了就很麻烦了 这个直接在服务端渲染完成前端可以直接用
+     * customRender:function (text) {
+     * if(text==1){
+     * return "男";
+     * }else if(text==2){
+     * return "女";
+     * }else{
+     * return text;
+     * }
+     * }
+     * 目前vue是这么进行字典渲染到table上的多了就很麻烦了 这个直接在服务端渲染完成前端可以直接用
+     *
      * @param result
      */
     private void parseDictText(Object result) {
         if (result instanceof Result && ((Result) result).getResult() != null) {
-                List<Object> items = new ArrayList<>();
-                if (((Result) result).getResult() instanceof IPage) {
-                    for (Object record : ((IPage) ((Result) result).getResult()).getRecords()) {
-                        items.add(setDictText(record,ReflectHelper.item(record)));
-                    }
-                    if (StringUtil.isNotEmpty(items)) {
-                        ((IPage) ((Result) result).getResult()).setRecords(items);
-                    }
-                } else if (((Result) result).getResult() instanceof List && !(((Result) result).getResult() instanceof JSONArray)) {
-                    for (Object record : (ArrayList) ((Result) result).getResult()) {
-                        items.add(setDictText(record,ReflectHelper.item(record)));
-
-                    }
-                    if (StringUtil.isNotEmpty(items)) {
-                        ((Result) result).setResult(items);
-                    }
-                } else {
-                    items.add(setDictText(((Result) result).getResult(),ReflectHelper.item(((Result) result).getResult())));
-                    if (StringUtil.isNotEmpty(items)) {
-                        ((Result) result).setResult(items.get(0));
-                    }
+            List<Object> items = new ArrayList<>();
+            if (((Result) result).getResult() instanceof IPage) {
+                for (Object record : ((IPage) ((Result) result).getResult()).getRecords()) {
+                    items.add(setDictText(record, ReflectHelper.item(record)));
                 }
+                if (StringUtil.isNotEmpty(items)) {
+                    ((IPage) ((Result) result).getResult()).setRecords(items);
+                }
+            } else if (((Result) result).getResult() instanceof List && !(((Result) result).getResult() instanceof JSONArray)) {
+                for (Object record : (ArrayList) ((Result) result).getResult()) {
+                    items.add(setDictText(record, ReflectHelper.item(record)));
+
+                }
+                if (StringUtil.isNotEmpty(items)) {
+                    ((Result) result).setResult(items);
+                }
+            } else {
+                items.add(setDictText(((Result) result).getResult(), ReflectHelper.item(((Result) result).getResult())));
+                if (StringUtil.isNotEmpty(items)) {
+                    ((Result) result).setResult(items.get(0));
+                }
+            }
 
         }
     }
 
-    private Object setDictText(Object record , JSONObject item){
+    private Object setDictText(Object record, JSONObject item) {
         Field[] firstFields = ReflectHelper.getAllFields(record);
-        if (firstFields.length == 0 || null == item){
+        if (firstFields.length == 0 || null == item) {
             return record;
         }
 
         for (Field field : firstFields) {
             String name = field.getName();
-            if (field.getType().getSimpleName().equals(LIST)){
-                List list = ReflectHelper.getList(record,name);
-                if (StringUtil.isEmpty(list)){
+            if (field.getType().getSimpleName().equals(LIST)) {
+                List list = ReflectHelper.getList(record, name);
+                if (StringUtil.isEmpty(list)) {
                     continue;
                 }
                 List<JSONObject> jsonList = new ArrayList<>(list.size());
-                log.info("字典list数据:{}",list);
+                log.info("字典list数据:{}", list);
                 for (Object o : list) {
                     JSONObject item2 = ReflectHelper.item(o);
                     Field[] fields = ReflectHelper.getAllFields(o);
-                    if(fields.length == 0){
+                    if (fields.length == 0) {
                         continue;
                     }
                     for (Field field2 : fields) {
-                        trans(field2,item2);
+                        trans(field2, item2);
                         //setDictText(o, item2);
                     }
                     jsonList.add(item2);
-                    item.put(name,jsonList);
+                    item.put(name, jsonList);
                 }
-            } else if (field.getType().getName().contains(ORG_JEECG)){
-                Object o = ReflectHelper.getObject(record,name);
-                if (null == o){
+            } else if (field.getType().getName().contains(ORG_JEECG)) {
+                Object o = ReflectHelper.getObject(record, name);
+                if (null == o) {
                     continue;
                 }
                 JSONObject item2 = ReflectHelper.item(o);
                 Field[] fields = ReflectHelper.getAllFields(o);
                 for (Field field2 : fields) {
-                    trans(field2,item2);
+                    trans(field2, item2);
                     //setDictText(o, item2);
                 }
-                item.put(name,item2);
+                item.put(name, item2);
             }
-            trans(field,item);
+            trans(field, item);
         }
         return item;
     }
+
     private void trans(Field field, JSONObject item) {
         if (field.getAnnotation(Dict.class) != null) {
             String code = field.getAnnotation(Dict.class).dicCode();
@@ -171,25 +174,27 @@ public class DictAspect {
             item.put(field.getName(), aDate.format(new Date((Long) item.get(field.getName()))));
         }
     }
+
     /**
-     *  翻译字典文本
+     * 翻译字典文本
+     *
      * @param code
      * @param key
      * @return
      */
-    private String translateDictValue(String code,String key) {
-        if(StringUtil.isEmpty(key)) {
+    private String translateDictValue(String code, String key) {
+        if (StringUtil.isEmpty(key)) {
             return null;
         }
         StringBuilder textValue = new StringBuilder();
         String[] keys = key.split(",");
         for (String k : keys) {
             String tmpValue = null;
-            log.debug(" 字典 key : "+ k);
+            log.debug(" 字典 key : " + k);
             if (k.trim().length() == 0) {
                 continue; //跳过循环
             }
-                tmpValue = dictService.queryDictTextByKey(code, k.trim());
+            tmpValue = dictService.queryDictTextByKey(code, k.trim());
             if (tmpValue != null) {
                 if (!"".equals(textValue.toString())) {
                     textValue.append(",");

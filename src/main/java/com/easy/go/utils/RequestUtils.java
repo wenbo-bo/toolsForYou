@@ -15,22 +15,22 @@ import java.util.Objects;
 @UtilityClass
 public class RequestUtils {
 
-    public HttpServletRequest getRequest(){
+    public HttpServletRequest getRequest() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        if (Objects.isNull(requestAttributes)){
+        if (Objects.isNull(requestAttributes)) {
             return null;
-        }else {
-            return ((ServletRequestAttributes)requestAttributes).getRequest();
+        } else {
+            return ((ServletRequestAttributes) requestAttributes).getRequest();
         }
     }
 
-    public String getParam(String str){
+    public String getParam(String str) {
         return getRequest().getParameter(str);
     }
 
-    public String getHeader(String head){
+    public String getHeader(String head) {
         HttpServletRequest request = getRequest();
-        if (null == request){
+        if (null == request) {
             return null;
         }
         return getRequest().getHeader(head);

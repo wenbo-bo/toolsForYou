@@ -34,10 +34,10 @@ public class StringUtil {
         }
     }
 
-    public static boolean stringEquels(String source,String target) {
-        if(isEmpty(source)||isEmpty(target)){
+    public static boolean stringEquels(String source, String target) {
+        if (isEmpty(source) || isEmpty(target)) {
             return false;
-        }else{
+        } else {
             return source.equals(target);
         }
     }
@@ -208,8 +208,8 @@ public class StringUtil {
 
     public static int getArrSum(String[] strings) {
         int sum = 0;
-        for(int i=0;i<strings.length;i++){
-            sum=sum+ Integer.parseInt(strings[i]);
+        for (int i = 0; i < strings.length; i++) {
+            sum = sum + Integer.parseInt(strings[i]);
         }
         return sum;
     }
@@ -222,10 +222,10 @@ public class StringUtil {
      * @return
      */
     public static List<Long> strToLongList(String strArr) {
-        List<Long> idList=new ArrayList<Long>();
-        String[] d=strArr.split(",");
+        List<Long> idList = new ArrayList<Long>();
+        String[] d = strArr.split(",");
         for (int i = 0, size = d.length; i < size; i++) {
-            if(d[i]!=null) {
+            if (d[i] != null) {
                 idList.add(Long.parseLong(d[i]));
             }
         }
@@ -240,13 +240,13 @@ public class StringUtil {
      * @return
      */
     public static List<String> strToStringList(String strArr) {
-        if(StringUtils.isEmpty(strArr)){
+        if (StringUtils.isEmpty(strArr)) {
             return null;
         }
-        List<String> idList=new ArrayList<String>();
-        String[] d=strArr.split(",");
+        List<String> idList = new ArrayList<String>();
+        String[] d = strArr.split(",");
         for (int i = 0, size = d.length; i < size; i++) {
-            if(d[i]!=null) {
+            if (d[i] != null) {
                 idList.add(d[i].toString());
             }
         }
@@ -256,18 +256,18 @@ public class StringUtil {
     public static List<String> searchCondition(String search) {
         if (isEmpty(search)) {
             return new ArrayList<String>();
-        }else{
+        } else {
             //String[] split = search.split(" ");
-			String[] split = search.split("#");
+            String[] split = search.split("#");
             return stringToListArray(split);
         }
     }
 
-    public static String getInfo(String search, String key){
+    public static String getInfo(String search, String key) {
         String value = null;
-        if(StringUtil.isNotEmpty(search)) {
-            search = search.replace("{}","");
-            if(StringUtil.isNotEmpty(search)) {
+        if (StringUtil.isNotEmpty(search)) {
+            search = search.replace("{}", "");
+            if (StringUtil.isNotEmpty(search)) {
                 JSONObject obj = JSONObject.parseObject(search);
                 if (obj.get(key) != null) {
                     value = obj.getString(key);
@@ -283,16 +283,16 @@ public class StringUtil {
     }
 
     public static String toNull(String value) {
-        if(("").equals(value)) {
+        if (("").equals(value)) {
             value = null;
         }
         return value;
     }
 
     public static boolean isExist(Object value) {
-        if(value!=null) {
+        if (value != null) {
             String str = value.toString();
-            if("".equals(str.trim())) {
+            if ("".equals(str.trim())) {
                 return false;
             } else {
                 return true;
@@ -304,10 +304,11 @@ public class StringUtil {
 
     /**
      * sql注入过滤，保障sql的安全执行
+     *
      * @param originStr
      * @return
      */
-    public static String safeSqlParse(String originStr){
+    public static String safeSqlParse(String originStr) {
         return originStr.replaceAll("(?i)" + regex, "");
     }
 
@@ -316,7 +317,7 @@ public class StringUtil {
     }
 
     public static void main(String[] args) {
-        int i = 10/3;
+        int i = 10 / 3;
         String str = safeSqlParse("delete,1,2,69844");
         List<Long> idList = StringUtil.strToLongList(str);
         System.out.println(i);

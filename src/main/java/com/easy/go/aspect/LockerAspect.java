@@ -46,7 +46,7 @@ public class LockerAspect {
 
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-        LOGGER.info("持有锁的方法{}",joinPoint.getSignature());
+        LOGGER.info("持有锁的方法{}", joinPoint.getSignature());
         Object proceed = null;
         long startTime = System.currentTimeMillis();
         Locker locker = getAnnotation(joinPoint, Locker.class);
@@ -54,7 +54,7 @@ public class LockerAspect {
         // 最大尝试次数
         int maxGetNum = locker.maxGetNum();
         // 会话标志
-        String uuid = UUID.randomUUID().toString().replace("-","");
+        String uuid = UUID.randomUUID().toString().replace("-", "");
         // 锁key
         String lockFiled = getLockFiled(args, locker.paramExp());
         String lockKey = CommonUtils.keyBuilder(locker.key(), lockFiled);
@@ -78,7 +78,7 @@ public class LockerAspect {
             long limitTime = locker.limitTime();
             long doTime = System.currentTimeMillis() - startTime;
             long sleepTime = limitTime - doTime;
-            LOGGER.info("业务耗时: {} 毫秒 锁时间: {} 毫秒",doTime,limitTime);
+            LOGGER.info("业务耗时: {} 毫秒 锁时间: {} 毫秒", doTime, limitTime);
             if (sleepTime > 0) {
                 Threads.sleep(sleepTime);
             }
@@ -94,7 +94,8 @@ public class LockerAspect {
 
     /**
      * 根据表达式获取要锁的字段
-     *0#name+1#name?payOrder 表示第一个参数的name字段+第二个参数的name字段，且额外拼接锁定的Key为payOrder
+     * 0#name+1#name?payOrder 表示第一个参数的name字段+第二个参数的name字段，且额外拼接锁定的Key为payOrder
+     *
      * @param args
      * @param expression 表达式
      * @return
@@ -120,9 +121,9 @@ public class LockerAspect {
                 Object o = null;
                 argsNum = Integer.parseInt(split[0]);
                 o = args[argsNum];
-                appendValue(o,split,field);
+                appendValue(o, split, field);
             } catch (Exception e) {
-                LOGGER.info("LockFiled e:{}",e.getMessage());
+                LOGGER.info("LockFiled e:{}", e.getMessage());
                 throw new UnsupportedOperationException("Locker表达式paramExp不正确！");
             }
         }
@@ -131,22 +132,25 @@ public class LockerAspect {
         }
         return field.toString();
     }
-    private void appendValue(Object o,String[] split,StringBuilder field){
+
+    private void appendValue(Object o, String[] split, StringBuilder field) {
         Object fieldValue = null;
         if (o instanceof JSONObject) {
             fieldValue = ((JSONObject) o).get(split[1]);
             field.append(fieldValue);
-        }else if (argType(o)){
+        } else if (argType(o)) {
             fieldValue = o;
             field.append(fieldValue);
-        }else {
-            fieldValue  = ReflectHelper.getFieldValue(o, split[1]);
+        } else {
+            fieldValue = ReflectHelper.getFieldValue(o, split[1]);
             field.append(fieldValue);
         }
     }
-    private boolean argType(Object arg){
-        return  (arg instanceof String || arg instanceof Number || arg instanceof Enum);
+
+    private boolean argType(Object arg) {
+        return (arg instanceof String || arg instanceof Number || arg instanceof Enum);
     }
+
     /**
      * 是否存在注解，如果存在就获取
      */
@@ -161,8 +165,8 @@ public class LockerAspect {
     }
 
 
-    private String getRequestMethod(){
+    private String getRequestMethod() {
         HttpServletRequest request = RequestUtils.getRequest();
-        return request == null ? "GET":request.getMethod();
+        return request == null ? "GET" : request.getMethod();
     }
 }

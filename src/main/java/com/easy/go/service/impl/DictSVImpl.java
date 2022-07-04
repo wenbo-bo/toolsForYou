@@ -11,5 +11,4 @@ import com.easy.go.service.IDictSV;
 public class DictSVImpl implements IDictSV {
 
 
-
 }

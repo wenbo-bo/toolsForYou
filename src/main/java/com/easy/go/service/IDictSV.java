@@ -9,7 +9,7 @@ import java.util.Map;
  * @Author wenbo
  * @Date 2022/3/30 14:51
  **/
-public interface IDictSV{
+public interface IDictSV {
 
 
     /**
@@ -18,22 +18,22 @@ public interface IDictSV{
      * 该查询可以做缓存 但是要注意的是不能使用  @Cacheable()注解 ,
      * 因为调用方是拦截器,注解方式会失效
      * redis 缓存使用 eg:redisTemplate.opsForValue().set(key, value); 即可
+     *
      * @param dictCode 字典的查询标识dictCode
      * @return
      */
 
-    default Map<String, String> getDictValues(String dictCode){
+    default Map<String, String> getDictValues(String dictCode) {
         return null;
     }
 
     /**
-     *
      * @param dictCode 字典的枚举dictCode
      * @param keyType  Map返回Key的类型
      * @param <T>
      * @return
      */
-    default  <T> Map<T, String> getDictValues(String dictCode, Class<T> keyType) {
+    default <T> Map<T, String> getDictValues(String dictCode, Class<T> keyType) {
         Map<T, String> map = new LinkedHashMap<>();
         Map<String, String> dictValues = this.getDictValues(dictCode);
         dictValues.forEach((code, value) -> {
@@ -55,7 +55,7 @@ public interface IDictSV{
     }
 
 
-    default String queryDictTextByKey(String code, String trim){
+    default String queryDictTextByKey(String code, String trim) {
         return null;
     }
 }

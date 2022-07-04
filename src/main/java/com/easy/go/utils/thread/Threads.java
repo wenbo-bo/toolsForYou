@@ -20,7 +20,7 @@ public class Threads {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
-            logger.debug("Interrupted!",e);
+            logger.debug("Interrupted!", e);
             // Restore interrupted state...
             Thread.currentThread().interrupt();
         }
