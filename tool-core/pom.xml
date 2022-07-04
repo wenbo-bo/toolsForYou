@@ -5,11 +5,19 @@
     <parent>
         <artifactId>tools-to-you</artifactId>
         <groupId>com.easy.go</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>2.5.4</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>tool-core</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.easy.go</groupId>
+            <artifactId>tool-common</artifactId>
+            <version>${tools-version}</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

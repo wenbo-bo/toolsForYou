@@ -1,6 +1,6 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.easygo.factory.ApplicationProperties
+  com.easygo.core.factory.ApplicationProperties
 
 
 
