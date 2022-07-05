@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/tool-common/release/com/easy/go/tool-common/
+/tool-core/release/com/easy/go/tool-core/
+/tool-sample/release/com/easy/go/tool-sample/

@@ -105,33 +105,33 @@
             <url>file:${project.basedir}/release</url>
         </repository>
     </distributionManagement>
-<!--    <repositories>-->
-<!--    <repository>-->
-<!--        <id>local-releases,!jeecg</id>-->
-<!--        <name>acme nexus</name>-->
-<!--        <url>http://8.129.189.39:8081/repository/maven-public/</url>-->
-<!--        <releases>-->
-<!--            <enabled>true</enabled>-->
-<!--        </releases>-->
-<!--        <snapshots>-->
-<!--            <enabled>false</enabled>-->
-<!--        </snapshots>-->
-<!--    </repository>-->
-<!--    </repositories>-->
+    <repositories>
+    <repository>
+        <id>local-releases,!jeecg</id>
+        <name>acme nexus</name>
+        <url>http://8.129.189.39:8081/repository/maven-public/</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    </repositories>
 
-<!--    <pluginRepositories>-->
-<!--        <pluginRepository>-->
-<!--            <id>local-releases</id>-->
-<!--            <name>acme nexus</name>-->
-<!--            <url>http://8.129.189.39:8081/repository/maven-public/</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--            </releases>-->
-<!--            <snapshots>-->
-<!--                <enabled>false</enabled>-->
-<!--            </snapshots>-->
-<!--        </pluginRepository>-->
-<!--    </pluginRepositories>-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>local-releases</id>
+            <name>acme nexus</name>
+            <url>http://8.129.189.39:8081/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
     <build>
         <finalName>toolsToYou</finalName>
         <plugins>
@@ -161,12 +161,21 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- 打包跳过测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
