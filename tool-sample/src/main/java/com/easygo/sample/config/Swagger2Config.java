@@ -32,10 +32,10 @@ public class Swagger2Config {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("焦视医疗 ERP")
+                        .title("toolsForYou")
                         .description("接口文档")
-                        .termsOfServiceUrl("http://jiaoshiyilaio.com/")
-                        .contact(new Contact("jiaoshiyilaio","","943013829@qq.com"))
+                        .termsOfServiceUrl("943013829@qq.com")
+                        //.contact(new Contact("jiaoshiyilaio","","943013829@qq.com"))
                         .version("1.0")
                         .build())
                 //分组名称
