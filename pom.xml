@@ -3,8 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.easy.go</groupId>
-    <artifactId>tools-to-you</artifactId>
-    <version>2.5.4</version>
+    <artifactId>tools-for-you</artifactId>
+    <version>0.5.7</version>
     <name>toolsForYou</name>
     <packaging>pom</packaging>
     <modules>
@@ -20,13 +20,10 @@
     </parent>
 
 
-
-
-
     <description>Tools project for Spring Boot</description>
     <properties>
         <java.version>1.8</java.version>
-        <tools-version>2.5.4</tools-version>
+        <tools-version>0.5.7</tools-version>
         <project-baseDir>E:\Code\toolsForYou</project-baseDir>
         <!-- 跳过测试 -->
         <skipTests>true</skipTests>
