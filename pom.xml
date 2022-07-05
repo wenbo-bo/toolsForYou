@@ -27,6 +27,7 @@
     <properties>
         <java.version>1.8</java.version>
         <tools-version>2.5.4</tools-version>
+        <project-baseDir>E:\Code\toolsForYou</project-baseDir>
         <!-- 跳过测试 -->
         <skipTests>true</skipTests>
     </properties>
@@ -98,13 +99,7 @@
 
     </dependencies>
     </dependencyManagement>
-    <distributionManagement>
-        <repository>
-            <id>gitee-zwenbobo</id>
-            <name>gitee-maven</name>
-            <url>file:${project.basedir}/release</url>
-        </repository>
-    </distributionManagement>
+
     <repositories>
     <repository>
         <id>local-releases,!jeecg</id>
@@ -132,8 +127,9 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
     <build>
-        <finalName>toolsToYou</finalName>
+        <finalName>toolsForYou</finalName>
         <plugins>
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->
