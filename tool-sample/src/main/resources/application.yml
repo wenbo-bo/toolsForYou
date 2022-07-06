@@ -26,11 +26,27 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
       filters: stat,config,logback
+        # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;druid.stat.logSlowSql=true;
       url: jdbc:mysql://127.0.0.1:3306/jsh_erp?useUnicode=true&characterEncoding=utf8&useCursorFetch=true&defaultFetchSize=500&allowMultiQueries=true&rewriteBatchedStatements=true&useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: 123456
 
+  #redis
+  redis:
+    database: 5
+    host: 127.0.0.1
+    lettuce:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      shutdown-timeout: 100ms
+    password: ''
+    port: 6379
+    client-type: lettuce
 
 #mybatis-plus配置
 mybatis-plus:
@@ -46,3 +62,6 @@ mybatis-plus:
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #org.apache.ibatis.logging.stdout.StdOutImpl
     #org.apache.ibatis.logging.nologging.NoLoggingImpl
+logging:
+  config: classpath:logback-spring.xml
+  filePath: /home/local/program/logs/easygo

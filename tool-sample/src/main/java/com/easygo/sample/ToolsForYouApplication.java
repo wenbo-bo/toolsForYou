@@ -6,7 +6,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.easygo.common.utils.ComputerInfo;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
 import org.springframework.core.env.Environment;
 
 import java.io.IOException;
@@ -18,7 +21,8 @@ import java.io.IOException;
  **/
 @Slf4j
 @MapperScan("com.easygo.sample.datasource.mappers")
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = {"com.easygo.sample","com.easygo.common"})
+@EnableConfigurationProperties
 public class ToolsForYouApplication {
     public static void main(String[] args) throws IOException {
         ConfigurableApplicationContext context = SpringApplication.run(ToolsForYouApplication.class, args);
