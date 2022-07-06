@@ -1,5 +1,7 @@
 package com.easygo.sample.datasource.entities;
 
+import com.easygo.core.annotation.DictEntity;
+import com.easygo.core.annotation.DictField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -19,6 +21,9 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value ="jsh_depot_head",description="单据主表")
+@DictEntity({
+        @DictField(dictCode = "outDepotStatus",from = "outDepotStatus",to = "outDepotStatusName")
+})
 public class DepotHead implements Serializable {
     @ApiModelProperty("主键")
     private Long id;
@@ -145,6 +150,8 @@ public class DepotHead implements Serializable {
 
     @ApiModelProperty("修改时间")
     private Date updateTime;
+
+    private String outDepotStatusName;
 
     private static final long serialVersionUID = 1L;
 }
