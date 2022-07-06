@@ -13,4 +13,11 @@
     <version>${tools-version}</version>
     <name>tool-common</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

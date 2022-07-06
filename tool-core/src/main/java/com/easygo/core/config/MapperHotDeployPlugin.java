@@ -1,6 +1,6 @@
 package com.easygo.core.config;
 
-//import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
 import org.apache.ibatis.builder.xml.XMLMapperEntityResolver;
@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.Resource;
@@ -34,8 +35,8 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
 
     private final static Logger logger = LoggerFactory.getLogger(MapperHotDeployPlugin.class);
 
-//	@Autowired
-//	private MybatisPlusProperties mybatisProperties;
+	@javax.annotation.Resource
+	private MybatisPlusProperties mybatisProperties;
 
     private Configuration configuration;
 
@@ -48,7 +49,7 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
     public void afterPropertiesSet() {
         // 设置mybatis配置文件cache-enabled: false不缓存，开启热部署xml
 //		if (!mybatisProperties.getConfiguration().isCacheEnabled()) {
-//			new WatchThread().start();
+			new WatchThread().start();
 //			logger.info("热部署开启");
 //		}
     }
@@ -113,7 +114,7 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
             Set<String> set = new HashSet<>();
             Arrays.stream(getResource()).forEach(r -> {
                 try {
-                    //logger.info("资源路径:{}", r.toString());
+                    logger.info("资源路径:{}", r.toString());
                     set.add(r.getFile().getParentFile().getAbsolutePath());
                 } catch (Exception e) {
                     logger.info("获取资源路径失败", e);
@@ -128,8 +129,8 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
          * 获取配置的mapperLocations
          */
         private Resource[] getResource() {
-            //return mybatisProperties.resolveMapperLocations();
-            return null;
+            return mybatisProperties.resolveMapperLocations();
+            //return null;
         }
 
         /**

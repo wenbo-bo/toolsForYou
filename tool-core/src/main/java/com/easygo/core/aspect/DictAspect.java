@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * @Description: 字典aop类
- * @Author: dangzhenghui
+ * @Author: wenbo
  * @Date: 2019-3-17 21:50
  * @Version: 1.0
  */

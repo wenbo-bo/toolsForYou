@@ -2,6 +2,7 @@ package com.easygo.sample;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.easygo.common.utils.ComputerInfo;
@@ -16,6 +17,7 @@ import java.io.IOException;
  * Copyright © 2021 xpc1024 All Rights Reserved
  **/
 @Slf4j
+@MapperScan("com.easygo.sample.datasource.mappers")
 @SpringBootApplication
 public class ToolsForYouApplication {
     public static void main(String[] args) throws IOException {
