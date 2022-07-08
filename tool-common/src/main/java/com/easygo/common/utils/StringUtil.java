@@ -2,7 +2,6 @@ package com.easygo.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -240,7 +239,7 @@ public class StringUtil {
      * @return
      */
     public static List<String> strToStringList(String strArr) {
-        if (StringUtils.isEmpty(strArr)) {
+        if (isEmpty(strArr)) {
             return null;
         }
         List<String> idList = new ArrayList<String>();

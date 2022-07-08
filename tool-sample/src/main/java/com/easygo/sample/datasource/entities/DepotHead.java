@@ -1,5 +1,6 @@
 package com.easygo.sample.datasource.entities;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.easygo.core.annotation.DictEntity;
 import com.easygo.core.annotation.DictField;
 import io.swagger.annotations.ApiModel;
@@ -151,6 +152,7 @@ public class DepotHead implements Serializable {
     @ApiModelProperty("修改时间")
     private Date updateTime;
 
+    @TableField(exist = false)
     private String outDepotStatusName;
 
     private static final long serialVersionUID = 1L;

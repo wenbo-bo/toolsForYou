@@ -9,8 +9,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>tool-sample</module>
-        <module>tool-core</module>
-        <module>tool-common</module>
+        <module>tool-parent</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -94,7 +93,7 @@
 
     <repositories>
         <repository>
-            <id>local-releases,!jeecg</id>
+            <id>local-releases</id>
             <name>acme nexus</name>
             <url>http://8.129.189.39:8081/repository/maven-public/</url>
             <releases>
@@ -104,11 +103,6 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>gitee-zwenbobo</id>
-            <url>https://gitee.com/zwenbobo/tools-for-you/raw/dev/release</url>
-        </repository>
-
     </repositories>
 
     <pluginRepositories>

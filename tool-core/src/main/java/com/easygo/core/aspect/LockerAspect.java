@@ -1,14 +1,15 @@
 package com.easygo.core.aspect;
 
-import cn.hutool.core.exceptions.ExceptionUtil;
+
 import com.alibaba.fastjson.JSONObject;
+import com.easygo.common.utils.StringUtil;
 import com.easygo.core.annotation.Locker;
 import com.easygo.common.utils.CommonUtils;
 import com.easygo.common.utils.RedisLockUtil;
 import com.easygo.common.utils.ReflectHelper;
 
 import com.easygo.common.utils.thread.Threads;
-import org.apache.commons.lang3.StringUtils;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -82,7 +83,7 @@ public class LockerAspect {
                 Threads.sleep(sleepTime);
             }
         } catch (Throwable throwable) {
-            LOGGER.error(ExceptionUtil.getMessage(throwable));
+            LOGGER.error(throwable.getMessage());
             throw throwable;
         } finally {
             // 释放锁
@@ -100,7 +101,7 @@ public class LockerAspect {
      * @return
      */
     private String getLockFiled(Object[] args, String expression) {
-        if (args == null || args.length == 0 || StringUtils.isBlank(expression)) {
+        if (args == null || args.length == 0 || StringUtil.isEmpty(expression)) {
             throw new UnsupportedOperationException("Locker所在方法参数为空! 请使用代码锁");
         }
         //Long userId = 0L;

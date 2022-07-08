@@ -3,22 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>tools-for-you</artifactId>
         <groupId>com.easy.go</groupId>
+        <artifactId>tool-parent</artifactId>
         <version>0.5.7</version>
+        <relativePath>../tool-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>tool-core</artifactId>
     <version>${tools-version}</version>
-
-
-    <distributionManagement>
-        <repository>
-            <id>gitee-zwenbobo</id>
-            <name>gitee-maven</name>
-            <url>file:${project-baseDir}/release</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -31,10 +23,14 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
 
-
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
     </dependencies>
 

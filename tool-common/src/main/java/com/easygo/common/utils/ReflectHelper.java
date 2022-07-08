@@ -1,10 +1,12 @@
 package com.easygo.common.utils;
 
+
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.Validate;
+import org.springframework.util.Assert;
+
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
@@ -288,7 +290,10 @@ public class ReflectHelper {
         if (obj == null) {
             return null;
         }
-        Validate.notBlank(fieldName, "fieldName can't be blank");
+        if (StringUtil.isEmpty(fieldName)){
+            throw new RuntimeException("fieldName can't be blank");
+        }
+
         for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
             try {
                 Field field = superClass.getDeclaredField(fieldName);
