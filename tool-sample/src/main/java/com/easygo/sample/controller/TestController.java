@@ -1,8 +1,10 @@
 package com.easygo.sample.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.easygo.common.utils.SpringUtil;
 import com.easygo.common.vo.Result;
 import com.easygo.core.annotation.Locker;
+import com.easygo.core.aspect.LockerAspect;
 import com.easygo.sample.datasource.entities.DepotHead;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +45,7 @@ public class TestController {
     @Locker(paramExp = "0#number+0#defaultNumber")
     public Result<?> lockerPost(@RequestBody DepotHead depotHead){
         System.out.println(depotHead);
+        LockerAspect bean = SpringUtil.getBean(LockerAspect.class);
         return Result.ok();
 
     }

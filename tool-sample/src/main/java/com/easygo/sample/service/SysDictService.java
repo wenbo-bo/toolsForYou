@@ -1,15 +1,14 @@
 package com.easygo.sample.service;
 
-import com.easygo.common.utils.RedisUtil;
 import com.easygo.core.service.IDictSV;
 
 import com.easygo.sample.datasource.mappers.SysDictMapperEx;
+import com.easygo.sample.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.Collections;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
