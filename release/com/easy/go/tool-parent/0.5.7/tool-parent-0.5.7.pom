@@ -22,6 +22,8 @@
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--    <maven.deploy.skip>true</maven.deploy.skip>-->
+<!--    <maven.install.skip>true</maven.install.skip>-->
     <tools-version>0.5.7</tools-version>
     <project-baseDir>E:\Code\toolsForYou</project-baseDir>
   </properties>

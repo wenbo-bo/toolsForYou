@@ -12,6 +12,20 @@
     <artifactId>tool-core</artifactId>
     <version>${tools-version}</version>
 
+
+    <repositories>
+        <repository>
+            <id>gitee-zwenbobo</id>
+            <name>gitee-maven</name>
+            <url>https://gitee.com/zwenbobo/tools-for-you/raw/dev/release</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.easy.go</groupId>
