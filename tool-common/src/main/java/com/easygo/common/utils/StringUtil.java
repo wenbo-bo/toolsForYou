@@ -65,6 +65,26 @@ public class StringUtil {
     }
 
     /**
+     * * 判断一个Map是否为空
+     *
+     * @param map 要判断的Map
+     * @return true：为空 false：非空
+     */
+    public static boolean isEmpty(Map<?, ?> map) {
+        return isNull(map) || map.isEmpty();
+    }
+
+    /**
+     * * 判断一个Map是否为空
+     *
+     * @param map 要判断的Map
+     * @return true：非空 false：空
+     */
+    public static boolean isNotEmpty(Map<?, ?> map) {
+        return !isEmpty(map);
+    }
+
+    /**
      * * 判断一个对象是否为空
      *
      * @param object Object

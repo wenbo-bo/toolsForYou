@@ -1,9 +1,5 @@
 package com.easygo.sample.datasource.mappers;
 
-import com.easygo.sample.datasource.entities.SysDict;
-import com.easygo.sample.datasource.entities.SysDictExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 import java.util.Map;
 

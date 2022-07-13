@@ -1,8 +1,5 @@
 package com.easygo.sample;
 
-
-import com.easygo.core.annotation.Locker;
-import com.easygo.core.aspect.LockerAspect;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -10,10 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.easygo.common.utils.ComputerInfo;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.Import;
+
 import org.springframework.core.env.Environment;
 
 import java.io.IOException;

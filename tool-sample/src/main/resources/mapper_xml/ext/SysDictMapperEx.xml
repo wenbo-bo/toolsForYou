@@ -9,4 +9,7 @@
     where 1 = 1 and dict_code = #{dict_code} and item_state = '1'
     order by item_order
   </select>
+  <select id="getDictValues2">
+
+  </select>
 </mapper>
