@@ -37,7 +37,6 @@
         <dependency>
             <groupId>com.easy.go</groupId>
             <artifactId>tool-core</artifactId>
-            <version>0.5.7</version>
         </dependency>
     </dependencies>
 

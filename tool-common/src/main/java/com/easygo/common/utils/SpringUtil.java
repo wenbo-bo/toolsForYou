@@ -1,10 +1,7 @@
 package com.easygo.common.utils;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
 
 /**
  * 静态存储Bean对象，方便调用
@@ -12,14 +9,8 @@ import org.springframework.stereotype.Component;
  * @author: wenbo
  * @version: 2019年04月28日 17:12
  */
-@Component
-public class SpringUtil implements ApplicationContextAware {
+public class SpringUtil {
     public static ApplicationContext applicationContext;
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContextParam) throws BeansException {
-        applicationContext = applicationContextParam;
-    }
 
     public static Object getObject(String id) {
         Object object = null;

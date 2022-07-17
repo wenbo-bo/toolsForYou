@@ -5,13 +5,13 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
  * @Author wenbo
  * @Date 2022/6/22 15:01
  **/
-@Component
 public class ApplicationProperties implements ApplicationContextAware, InitializingBean {
 
     /**
