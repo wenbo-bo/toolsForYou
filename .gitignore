@@ -34,3 +34,6 @@ build/
 /tool-common/release/com/easy/go/tool-common/
 /tool-core/release/com/easy/go/tool-core/
 /tool-sample/release/com/easy/go/tool-sample/
+/tool-common/target/
+/tool-core/target/
+/tool-sample/target/
