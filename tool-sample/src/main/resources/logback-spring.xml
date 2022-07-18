@@ -4,9 +4,6 @@
     <property name="log.lever" value="DEBUG" />
     <!--<property name="log.filePath" value="${log.filePath}"></property>-->
     <springProperty scope="context" name="log.filePath" source="logging.filePath"/>
-<!--    <springProperty scope="context" name="address.ip" source="address.ip"/>-->
-
-
     <property name="log.pattern" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n" />
     <property name="log.MaxFileSize" value="5MB"/>
     <property name="log.maxHistory" value="5" />
@@ -136,26 +133,34 @@
     </logger>
 
     <logger name="springfox.documentation" level="ERROR" >
-        <appender-ref ref="allAppender"/>
-        <appender-ref ref="infoAppender" />
         <appender-ref ref="debugAppender" />
         <appender-ref ref="errorAppender" />
     </logger>
 
 
     <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="ERROR" >
-        <appender-ref ref="allAppender"/>
-        <appender-ref ref="infoAppender" />
         <appender-ref ref="debugAppender" />
         <appender-ref ref="errorAppender" />
     </logger>
+    <logger name=" org.springframework" level="ERROR" >
+<!--        <appender-ref ref="debugAppender" />-->
+        <appender-ref ref="errorAppender" />
+    </logger>
+    <logger name="springfox.bean.validators" level="ERROR" >
+        <appender-ref ref="debugAppender" />
+        <appender-ref ref="errorAppender" />
+    </logger>
+    <logger name="org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener" level="ERROR" >
+        <appender-ref ref="errorAppender" />
+    </logger>
+
+
 
     <logger name="com.alibaba.druid.filter.stat.StatFilter" level="ERROR">
         <appender-ref ref="slowSqlAppender" />
     </logger>
     <!-- 日志输出级别 -->
     <root level="${log.lever}">
-<!--        <appender-ref ref="GELF"/>-->
         <appender-ref ref="consoleAppender"/>
         <appender-ref ref="consoleFileAppender"/>
         <appender-ref ref="errorAppender"/>

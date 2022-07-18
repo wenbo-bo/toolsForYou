@@ -32,7 +32,7 @@ public class TestController {
 
     @GetMapping("/lockerGet")
     @ApiOperation("测试锁")
-    @Locker(paramExp = "0#param+0#param2")
+    @Locker(paramExp = "0#param+1#param2")
     public Result<?> lockerGet(
             @RequestParam String param,
             @RequestParam String param2){

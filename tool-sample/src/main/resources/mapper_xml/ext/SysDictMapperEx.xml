@@ -9,4 +9,12 @@
   where 1 = 1 and dict_code = #{dict_code} and item_state = '1'
   order by item_order
 </select>
+  <select id="getDictValues2" resultType="java.util.Map">
+    select
+    item_code code,
+    item_name value
+    from jsh_sys_dict
+    where 1 = 1 and dict_code = #{dict_code} and item_state = '1'
+    order by item_order
+  </select>
 </mapper>

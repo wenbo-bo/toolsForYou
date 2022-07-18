@@ -3,6 +3,7 @@ package com.easygo.core.config;
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 
 import com.sun.nio.file.ExtendedWatchEventModifier;
+import org.apache.ibatis.builder.ResultMapResolver;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import com.easygo.common.utils.StringUtil;
 import org.apache.ibatis.builder.xml.XMLMapperBuilder;
@@ -19,6 +20,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -38,6 +40,7 @@ import java.util.stream.Collectors;
  * @author:文博
  * @version: 2021年03月28日 14:10
  */
+@Component
 public class MapperHotDeployPlugin implements InitializingBean, ApplicationContextAware {
 
     private final static Logger logger = LoggerFactory.getLogger(MapperHotDeployPlugin.class);
@@ -243,7 +246,7 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
             logger.info("从{}中加载{}属性", obj, fieldName);
             try {
                 Field field = null;
-                if (mybatisPlus && LOADED_RESOURCES.equals(fieldName)){
+                if (mybatisPlus){
                     field =  obj.getClass().getSuperclass().getDeclaredField(fieldName);
                 }else {
                     field =  obj.getClass().getDeclaredField(fieldName);

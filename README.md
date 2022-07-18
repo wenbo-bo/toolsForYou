@@ -1,7 +1,10 @@
 # toolsForYou
 
 #### 介绍
-项目字典翻译 工具  全局并发锁实现  后续多事务开发中
+1.项目字典翻译 工具  
+2.全局并发锁实现  
+3.mybatis xml 热加载插件  
+4.后续多事务开发中
 
 #### 软件架构
 软件架构说明
@@ -37,7 +40,7 @@
 ```
 
 
-#### 使用说明(翻译使用)
+#### 字典翻译使用配置
     
 1.  实现字典接口
 ```
@@ -59,22 +62,82 @@ public interface IDictSV {
         return null;
     }
 ```
-2.  xxxx
-3.  xxxx
+2. 在需要翻译的实体类上加上注解  
+eg:
+```
+/**
+*sex 数据库原字段
+*sexName 翻译后加载到该字段 可以自定义
+*/
+@DictEntity({
+        @DictField(dictCode = "sex",from = "sex",to = "sexName")
+})
+public class user{
 
-#### 参与贡献
+/**
+*数据库存储字段 1 或者 2
+*/
+private String sex;
+/**
+*
+*该字段会被翻译成 男 或者 女
+*/
+private String sexName
+}
+```
+#### 分布式并发锁
+1.在需要控制并发的接口上加上注解 (比如下单接口) @Locker  
+```
+    @PostMapping("/lockerPost")
+    @ApiOperation("测试锁")
+    @Locker(paramExp = "0#number+0#defaultNumber")
+    public Result<?> lockerPost(@RequestBody Order order){
+        System.out.println(order);
+        return Result.ok();
 
+    }
+```
+1.1 接口支持各种形式 的入参
+```
+    @GetMapping("/lockerGet")
+    @ApiOperation("测试锁")
+    @Locker(paramExp = "0#param+1#param2")
+    public Result<?> lockerGet(
+            @RequestParam String param,
+            @RequestParam String param2){
+        System.out.println(param);
+        return Result.ok("成功");
+    }
+
+
+    @PostMapping(value = "/lockerPost2",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ApiOperation("测试锁")
+    @Locker(paramExp = "0#a+1#b")
+    public Result<?> lockerGet2(String a,String b){
+        System.out.println(a);
+        return Result.ok();
+
+    }
+
+    @PostMapping("/jsonPost")
+    @ApiOperation("测试锁")
+    @Locker(paramExp = "0#number+0#defaultNumber")
+    public Result<?> jsonPost(@RequestBody JSONObject jsonObject){
+        System.out.println(jsonObject);
+        return Result.ok();
+
+    }
+```
+#### mybatis xml热部署
+1. 在配置 mybatis 或者 mybatis-plus时 配置  cache-enabled: false 启用
+不想使用 设置为true 本地可以禁用二级缓存 ,生产可以不需要热部署 开始二级缓存 且热部署失效
+```
+  configuration:
+    cache-enabled: false
+```
+#### 多少数据源情况下多事务不同步解决(完善中)
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
 
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

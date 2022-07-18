@@ -57,7 +57,7 @@ mybatis-plus:
       table-underline: true
       table-prefix: jsh_
   configuration:
-    cache-enabled: false
+    cache-enabled: true
     map-underscore-to-camel-case: true
     #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     #org.apache.ibatis.logging.stdout.StdOutImpl
