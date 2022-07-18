@@ -1,0 +1,9 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.easygo.core.factory.ApplicationProperties,\
+  com.easygo.core.aspect.LockerAspect,\
+  com.easygo.core.config.MapperHotDeployPlugin
+
+
+
+
