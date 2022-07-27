@@ -12,31 +12,13 @@
 
 #### 安装教程
 
-1.  添加依赖
+添加依赖
 ```
         <dependency>
-            <groupId>com.easy.go</groupId>
+            <groupId>io.gitee.zwenbobo</groupId>
             <artifactId>tool-core</artifactId>
             <version>0.5.7</version>
         </dependency>
-```
-2.  设置仓库下载地址
-```
-        <repository>
-            <id>gitee-zwenbobo</id>
-            <name>gitee-maven</name>
-            <url>https://gitee.com/zwenbobo/tools-for-you/raw/dev/release</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-```
-2.1 或者下载jar 打入本地仓库
-```
-下载地址:https://gitee.com/zwenbobo/tools-for-you/blob/dev/release/com/easy/go/tool-core/0.5.7/tool-core-0.5.7.jar
 ```
 
 

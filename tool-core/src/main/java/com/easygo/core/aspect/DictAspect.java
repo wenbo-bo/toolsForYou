@@ -42,7 +42,7 @@ public class DictAspect {
     private static final String ORG_JEECG = "org.jeecg";
 
     // 定义切点Pointcut
-    @Pointcut("execution(public * org.jeecg.modules..*.*Controller.*(..))")
+    @Pointcut("execution(public * org.modules..*.*Controller.*(..))")
     public void excudeService() {
     }
 
@@ -84,7 +84,7 @@ public class DictAspect {
      */
     private void parseDictText(Object result) {
         if (result instanceof Result && ((Result) result).getResult() != null) {
-            List<Object> items = new ArrayList<>();
+            List<Object> items = new ArrayList<Object>();
             if (((Result) result).getResult() instanceof IPage) {
                 for (Object record : ((IPage) ((Result) result).getResult()).getRecords()) {
                     items.add(setDictText(record, ReflectHelper.item(record)));
@@ -123,7 +123,7 @@ public class DictAspect {
                 if (StringUtil.isEmpty(list)) {
                     continue;
                 }
-                List<JSONObject> jsonList = new ArrayList<>(list.size());
+                List<JSONObject> jsonList = new ArrayList<JSONObject>(list.size());
                 log.info("字典list数据:{}", list);
                 for (Object o : list) {
                     JSONObject item2 = ReflectHelper.item(o);

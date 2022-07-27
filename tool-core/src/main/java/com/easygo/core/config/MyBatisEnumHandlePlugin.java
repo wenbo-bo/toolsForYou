@@ -81,18 +81,18 @@ public class MyBatisEnumHandlePlugin implements Interceptor {
 
         IDictSV iDictSV = SpringUtil.getBean(IDictSV.class);
         //Method getDictValues = IDictSV.class.getMethod("getDictValues",String.class, Class.class);
-        List<Map<String, Object>> list = new ArrayList<>();
-        List<DictField> dicts = new ArrayList<>();
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        List<DictField> dicts = new ArrayList<DictField>();
         getAllDictAnnotation(cls, dicts);
         if (dicts.isEmpty()) {
             return list;
         }
-        Set<DictField> set = new HashSet<>(dicts);
+        Set<DictField> set = new HashSet<DictField>(dicts);
         for (Iterator<DictField> iterator = set.iterator(); iterator.hasNext(); ) {
             DictField dictField = iterator.next();
             // 开始填充Field
             // 字典读写翻译信息存储
-            Map<String, Object> fieldInfo = new HashMap<>();
+            Map<String, Object> fieldInfo = new HashMap<String, Object>();
             String toField = dictField.to();
             if ("".equals(toField)) {
                 //如果没有设置，默认为From()+Name

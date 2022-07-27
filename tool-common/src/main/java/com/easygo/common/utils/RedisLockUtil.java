@@ -55,10 +55,10 @@ public class RedisLockUtil {
     private static RedisTemplate<Object, Object> redisTemplate;
 
     static {
-        redisTemplate = new RedisTemplate<>();
+        redisTemplate = new RedisTemplate<Object, Object>();
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值
-        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<>(Object.class);
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer<Object>(Object.class);
         RedisConnectionFactory connectionFactory = SpringUtil.getBean(RedisConnectionFactory.class);
         redisTemplate.setConnectionFactory(connectionFactory);
         ObjectMapper mapper = new ObjectMapper();
@@ -109,7 +109,7 @@ public class RedisLockUtil {
         };
         Object result = redisTemplate.execute(
                 redisScript,// lua脚本
-                Collections.singletonList(lockKey),// KEYS[1]
+                Collections.<Object>singletonList(lockKey),// KEYS[1]
                 requestId, // ARGV[1]
                 expireTimeMilliseconds // ARGV[2]
         );
@@ -150,7 +150,7 @@ public class RedisLockUtil {
         };
         Object result = redisTemplate.execute(
                 redisScript,
-                Collections.singletonList(lockKey),
+                Collections.<Object>singletonList(lockKey),
                 requestId
         );
         boolean b = SUCCESS.equals(result);

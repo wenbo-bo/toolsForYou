@@ -325,7 +325,7 @@ public class ReflectHelper {
      */
     public static Field[] getAllFields(Object object) {
         Class<?> clazz = object.getClass();
-        List<Field> fieldList = new ArrayList<>();
+        List<Field> fieldList = new ArrayList<Field>();
         if (("HashMap").equals(clazz.getSimpleName()) || "LinkedHashMap".equals(clazz.getSimpleName()) || object.toString().startsWith("data:image/jpg")) {
             return fieldList.toArray(new Field[0]);
         }
@@ -333,7 +333,7 @@ public class ReflectHelper {
             if (("JSONObject").equals(clazz.getSimpleName())) {
                 break;
             }
-            fieldList.addAll(new ArrayList<>(Arrays.asList(clazz.getDeclaredFields())));
+            fieldList.addAll(new ArrayList<Field>(Arrays.asList(clazz.getDeclaredFields())));
             clazz = clazz.getSuperclass();
 
         }
