@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.gitee.zwenbobo</groupId>
         <artifactId>tool-parent</artifactId>
-        <version>0.5.7</version>
+        <version>0.5.8</version>
         <relativePath>../tool-parent</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -31,9 +31,8 @@
     </repositories>
     <dependencies>
         <dependency>
-            <groupId>com.easy.go</groupId>
+            <groupId>io.gitee.zwenbobo</groupId>
             <artifactId>tool-common</artifactId>
-            <version>${tools-version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>

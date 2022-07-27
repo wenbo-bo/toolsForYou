@@ -14,7 +14,7 @@
 
   <groupId>io.gitee.zwenbobo</groupId>
   <artifactId>tool-parent</artifactId>
-  <version>0.5.7</version>
+  <version>0.5.8</version>
   <name>tool-parent</name>
   <description>easy for you project</description>
   <url>https://gitee.com/zwenbobo/tools-for-you</url>
@@ -34,7 +34,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <!--    <maven.deploy.skip>true</maven.deploy.skip>-->
 <!--    <maven.install.skip>true</maven.install.skip>-->
-    <tools-version>0.5.7</tools-version>
+    <tools-version>0.5.8</tools-version>
 <!--    <project-baseDir>E:\Code\toolsForYou</project-baseDir>-->
     <gpg.keyname>0xE49F5F09</gpg.keyname>
   </properties>
@@ -62,6 +62,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>io.gitee.zwenbobo</groupId>
+        <artifactId>tool-common</artifactId>
+        <version>${version}</version>
+      </dependency>
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>aspectjrt</artifactId>

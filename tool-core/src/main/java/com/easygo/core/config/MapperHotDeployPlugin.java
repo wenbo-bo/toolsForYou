@@ -2,6 +2,7 @@ package com.easygo.core.config;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
 
+import com.easygo.common.utils.thread.Threads;
 import com.sun.nio.file.ExtendedWatchEventModifier;
 import org.apache.ibatis.builder.ResultMapResolver;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
@@ -277,6 +278,7 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
             logger.info("需要重新加载的文件列表: {}", set);
             logger.info("需要处理的资源路径:{}", list);
             final String[] namespace = {null};
+            Threads.sleep(2000);
             list.forEach(r -> {
                 try {
                     namespace[0] = getNamespace(r);
