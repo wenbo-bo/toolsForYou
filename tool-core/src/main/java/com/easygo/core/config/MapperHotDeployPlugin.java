@@ -111,7 +111,7 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
             Set<String> watchPaths = getWatchPaths();
             try {
                 WatchService watcher = FileSystems.getDefault().newWatchService();
-                watchPaths.forEach(p -> {
+                watchPaths.forEach(p-> {
                     try {
                         Paths.get(p).register(watcher,
                                 StandardWatchEventKinds.ENTRY_MODIFY,

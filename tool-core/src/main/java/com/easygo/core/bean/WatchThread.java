@@ -27,11 +27,13 @@ public class WatchThread {
     protected ScheduledExecutorService scheduledExecutorService() {
         return new ScheduledThreadPoolExecutor(10,
                 new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
-                (Runnable r, ThreadPoolExecutor executor) -> {
-                    try {
-                        executor.getQueue().put(r);
-                    } catch (Exception e) {
-                        //异常会 调用 afterExecute(Runnable r, Throwable t);
+                new RejectedExecutionHandler() {
+                    public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+                        try {
+                            executor.getQueue().put(r);
+                        } catch (Exception e) {
+                            //异常会 调用 afterExecute(Runnable r, Throwable t);
+                        }
                     }
                 }) {
 
