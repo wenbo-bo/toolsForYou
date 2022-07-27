@@ -130,7 +130,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.easy.go</groupId>
+                <groupId>io.gitee.zwenbobo</groupId>
                 <artifactId>tool-core</artifactId>
                 <version>0.5.7</version>
             </dependency>

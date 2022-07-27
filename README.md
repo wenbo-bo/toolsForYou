@@ -17,7 +17,7 @@
         <dependency>
             <groupId>io.gitee.zwenbobo</groupId>
             <artifactId>tool-core</artifactId>
-            <version>0.5.7</version>
+            <version>last-version</version>
         </dependency>
 ```
 

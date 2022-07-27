@@ -35,7 +35,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.easy.go</groupId>
+            <groupId>io.gitee.zwenbobo</groupId>
             <artifactId>tool-core</artifactId>
         </dependency>
     </dependencies>
