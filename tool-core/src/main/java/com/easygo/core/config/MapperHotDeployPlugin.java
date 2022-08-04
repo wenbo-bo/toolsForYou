@@ -272,9 +272,9 @@ public class MapperHotDeployPlugin implements InitializingBean, ApplicationConte
             List<Resource> list = Arrays.stream(resources)
                     .filter(p -> set.contains(p.getFilename()))
                     .collect(Collectors.toList());
-            if (StringUtil.isEmpty(list)){
-                return;
-            }
+//            if (StringUtil.isEmpty(list)){
+//                return;
+//            }
             logger.info("需要重新加载的文件列表: {}", set);
             logger.info("需要处理的资源路径:{}", list);
             final String[] namespace = {null};
