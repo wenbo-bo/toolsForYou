@@ -34,6 +34,10 @@ public class SpringUtil {
         return applicationContext.getBean(name, tClass);
     }
 
+    public static String[] getBeanNamesForType(Class<?> tClass) {
+        return applicationContext.getBeanNamesForType(tClass);
+    }
+
 
     public static String[] getProfiles() {
         //获取环境
