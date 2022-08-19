@@ -132,7 +132,7 @@
             <dependency>
                 <groupId>io.gitee.zwenbobo</groupId>
                 <artifactId>tool-core</artifactId>
-                <version>0.5.7</version>
+                <version>0.5.8</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

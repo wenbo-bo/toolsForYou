@@ -1,7 +1,10 @@
 package com.easygo.core.bean;
 
 import com.easygo.common.utils.StringUtil;
+import com.easygo.core.factory.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,11 +17,12 @@ import java.util.stream.Stream;
  * @Date 2021/3/2 15:05
  **/
 @Component
+@ConditionalOnClass(ApplicationProperties.class)
 public class ComboTransaction {
 
-    public static final String DB1_TX = "ds1TransactionManager";
+    public static final String DB1_TX = "rretfd";
 
-    public static final String DB2_TX = "ds2TransactionManager";
+    public static final  String DB2_TX = "";
 
     @Resource
     private Db1TxBroker db1TxBroker;
@@ -55,7 +59,6 @@ public class ComboTransaction {
             throw new RuntimeException(e);
         }
     }
-
 
 
     @Component
