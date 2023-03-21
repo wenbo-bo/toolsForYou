@@ -148,7 +148,7 @@ public class LockerAspect {
     }
 
     private boolean argType(Object arg) {
-        return (arg instanceof String || arg instanceof Number || arg instanceof Enum);
+        return (arg instanceof String || arg instanceof Number || arg instanceof Enum || arg instanceof Boolean);
     }
 
     /**
